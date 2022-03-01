@@ -1,16 +1,6 @@
 name: Build
 
-on:
-  push:
-    branches:
-      - master
-      - main
-      - release/*
-      - issue-*
-  pull_request:
-    branches:
-      - master
-      - main
+on: push
 
 jobs:
   analysis:
