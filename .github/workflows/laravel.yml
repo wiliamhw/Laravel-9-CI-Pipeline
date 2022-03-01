@@ -69,3 +69,8 @@ jobs:
           cp .env.example .env
           php artisan key:generate --env=testing
           php artisan test --env=testing --parallel tests/Feature
+      - name: Run unit test
+        run: |
+          cp .env.example .env
+          php artisan key:generate --env=testing
+          php artisan test --env=testing --parallel tests/Unit
