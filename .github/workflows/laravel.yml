@@ -6,19 +6,31 @@ jobs:
   Preparation:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '8.0'
-      - uses: actions/checkout@v2
+      - name: Get Composer Cache Directory 2
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
       - uses: actions/cache@v2
+        id: actions-cache
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          path: '${{ steps.composer-cache.outputs.dir }}'
+          key: '${{ runner.os }}-composer-${{ hashFiles(''**/composer.lock'') }}'
           restore-keys: |
             ${{ runner.os }}-composer-
+      - name: Cache PHP dependencies
+        uses: actions/cache@v2
+        id: vendor-cache
+        with:
+          path: vendor
+          key: '${{ runner.OS }}-build-${{ hashFiles(''**/composer.lock'') }}'
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
+        if: steps.vendor-cache.outputs.cache-hit != 'true'
         run: php -d memory_limit=-1 /usr/bin/composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Generate key
         run: php artisan key:generate
@@ -33,7 +45,6 @@ jobs:
     needs: Preparation
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
       - name: PHPStan Analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
 #      - name: Execute tests (Unit and Feature tests) via PHPUnit
