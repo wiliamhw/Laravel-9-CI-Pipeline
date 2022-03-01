@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Preparation
     steps:
+      - uses: actions/checkout@1
       - name: PHPStan Analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
 #      - name: Execute tests (Unit and Feature tests) via PHPUnit
