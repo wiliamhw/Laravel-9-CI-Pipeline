@@ -35,8 +35,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (Throwable $error) {
+            if ($this->shouldReport($error) && app()->bound('sentry')) {
+                app('sentry')->captureException($error);
+            }
         });
     }
 }
