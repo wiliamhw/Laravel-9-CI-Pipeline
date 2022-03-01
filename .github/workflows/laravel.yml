@@ -47,9 +47,16 @@ jobs:
         with:
           path: vendor
           key: '${{ runner.OS }}-build-${{ hashFiles(''**/composer.lock'') }}'
-      - name: Run phpstan Analysis
+      - name: Run phpstan analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
-      - name: Run phpmd Analysis
+      - name: Run phpmd analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpmd-analysis
-      - name: Run phpcpd Analysis
+      - name: Run phpcpd analysis
         run: php -d memory_limit=-1 vendor/bin/phpcpd --min-lines=3 --min-tokens=36 app/
+  Testing:
+    runs-on: ubuntu-latest
+    needs: Static-Analysis
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run feature test
+        run: php artisan test --env=testing --parallel tests/Feature
