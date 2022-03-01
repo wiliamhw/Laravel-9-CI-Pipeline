@@ -10,6 +10,9 @@ jobs:
         with:
           php-version: '8.0'
       - uses: actions/checkout@v2
+        with:
+          paths: ~/vendor/
+          key: php8.0
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
