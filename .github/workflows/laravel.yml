@@ -10,6 +10,7 @@ jobs:
         with:
           php-version: '8.0'
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -32,6 +33,7 @@ jobs:
     needs: Preparation
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
       - name: PHPStan Analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
 #      - name: Execute tests (Unit and Feature tests) via PHPUnit
