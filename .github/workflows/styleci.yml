@@ -1,0 +1,31 @@
+name: StyleCI
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - release/*
+      - issue-*
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  Analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          extensions: curl
+      - name: analyze code with StyleCI
+        uses: nathane/styleci-action@latest # Available tags: "@1.2", "@v1.2.2"
+        with:
+          styleci_api_key: ${{ secrets.STYLECI_API_KEY }} # required
+          options: '--no-interaction --dry-run'         # optional
+          # directory: './'                               # optional
