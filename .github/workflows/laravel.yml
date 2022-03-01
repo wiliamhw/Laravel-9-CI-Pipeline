@@ -46,6 +46,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
+        with:
+          key: '${{ runner.os }}-composer-${{ hashFiles(''**/composer.lock'') }}'
+          restore-keys: |
+              ${{ runner.os }}-composer-
       - name: PHPStan Analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
 #      - name: Execute tests (Unit and Feature tests) via PHPUnit
