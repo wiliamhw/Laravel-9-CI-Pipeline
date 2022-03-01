@@ -65,4 +65,7 @@ jobs:
           path: vendor
           key: '${{ runner.OS }}-build-${{ hashFiles(''**/composer.lock'') }}'
       - name: Run feature test
-        run: php artisan test --env=testing --parallel tests/Feature
+        run: |
+          cp .env.example .env
+          php artisan key:generate --env=testing
+          php artisan test --env=testing --parallel tests/Feature
