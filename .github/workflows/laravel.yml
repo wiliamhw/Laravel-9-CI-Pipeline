@@ -22,10 +22,12 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - name: PHPStan Analysis
+        run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
   Static-Analysis:
     runs-on: ubuntu-latest
     steps:
-      - name: PHPCPD analysis
+      - name: PHPStan Analysis
         run: php -d memory_limit=-1 /usr/bin/composer phpstan-analysis
 #      - name: Execute tests (Unit and Feature tests) via PHPUnit
 #        env:
