@@ -9,10 +9,6 @@ jobs:
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '8.0'
-      - uses: actions/checkout@v2
-        with:
-          paths: ~/vendor/
-          key: php8.0
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
@@ -25,6 +21,7 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - uses: actions/checkout@v2
   Static-Analysis:
     runs-on: ubuntu-latest
     needs: Preparation
