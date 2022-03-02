@@ -2,7 +2,10 @@
     "name": "wiliamhw/laravel-9-ci-pipeline",
     "type": "project",
     "description": "The Laravel 9 CI pipeline",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -27,8 +30,7 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpunit/phpunit": "^9.5.10",
         "sebastian/phpcpd": "^6.0",
-        "spatie/laravel-ignition": "^1.0",
-        "styleci/cli": "^1.2"
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -74,9 +76,6 @@
         ],
         "test": [
             "@php artisan test --parallel"
-        ],
-        "styleci": [
-            "@php vendor/bin/styleci"
         ]
     },
     "extra": {
