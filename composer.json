@@ -2,7 +2,10 @@
     "name": "wiliamhw/laravel-9-ci-pipeline",
     "type": "project",
     "description": "The Laravel 9 CI pipeline",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
