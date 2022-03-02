@@ -3,3 +3,4 @@ vendor/
 storage/
 node_modules/
 .github/
+composer.lock
