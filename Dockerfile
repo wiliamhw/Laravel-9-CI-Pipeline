@@ -79,12 +79,15 @@ ENV ALLOW_EVENT_INVOCATION=${ALLOW_EVENT_INVOCATION}
 ENV FORCE_HTTPS_URL=${FORCE_HTTPS_URL}
 
 #Install dependecies
-RUN apt-get update && apt-get install -y \
-    build-essential git curl zip libzip-dev locales libpq-dev postgresql postgresql-client \
+RUN apk update && apk add \
+    build-base git curl zip libzip-dev libpq-dev postgresql postgresql-client
 
 # Install required services
 RUN docker-php-ext-configure pgsql
 RUN docker-php-ext-install pdo pdo_pgsql pgsql zip exif pcntl
+
+# Install composer:
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . /var/www/html/
 
@@ -94,17 +97,16 @@ WORKDIR /var/www/html
 RUN composer install --optimize-autoloader --no-dev
 
 # Prepare the .env files
-RUN rm .env.example
-RUN php artisan key:generate
+# RUN rm .env.example
+# RUN php artisan key:generate
 
 # Optimize Laravel
 RUN php artisan clear-compiled
 RUN php artisan optimize
 RUN php artisan storage:link
 
-# Publish Laravel LiveWire assets
-RUN php artisan livewire:publish --assets
-RUN php artisan livewire:discover
-
 RUN chown -R www-data:www-data storage/
 RUN chmod -R 0775 storage/
+
+EXPOSE 9000
+ENTRYPOINT php artisan serve
