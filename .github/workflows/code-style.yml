@@ -9,13 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run PHP CS Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Fix styling
-          branch: ${{ github.head_ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   prettier:
     runs-on: ubuntu-latest
@@ -29,7 +22,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Apply Prettier changes
+          commit_message: Fix styling
           branch: ${{ github.head_ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
