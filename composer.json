@@ -28,7 +28,6 @@
         "phpunit/phpunit": "^9.5.10",
         "sebastian/phpcpd": "^6.0",
         "spatie/laravel-ignition": "^1.0",
-        "styleci/cli": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -75,9 +74,6 @@
         "test": [
             "@php artisan test --parallel"
         ],
-        "styleci": [
-            "@php vendor/bin/styleci"
-        ]
     },
     "extra": {
         "laravel": {
