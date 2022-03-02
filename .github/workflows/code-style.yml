@@ -19,7 +19,6 @@ jobs:
 
   prettier:
     runs-on: ubuntu-latest
-    needs: php-cs-fixer
     steps:
       - uses: actions/checkout@v2
       - name: Install NPM dependencies
@@ -32,4 +31,4 @@ jobs:
           commit_message: Apply Prettier changes
           branch: ${{ github.head_ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
