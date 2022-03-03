@@ -9,10 +9,14 @@
         "prod": "npm run production",
         "production": "mix --production",
         "format": "npx prettier --write .",
-        "format:check": "npx prettier --check ."
+        "format:check": "npx prettier --check .",
+        "prepare": "husky install"
     },
     "devDependencies": {
+        "@commitlint/cli": "^16.2.1",
+        "@commitlint/config-conventional": "^16.2.1",
         "axios": "^0.25",
+        "husky": "^7.0.4",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
