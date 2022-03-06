@@ -72,7 +72,7 @@
             "@php vendor/bin/phpmd database/ text codesize,controversial,design,unusedcode,.phpmd.cleancode.xml"
         ],
         "phpcpd-analysis": [
-            "@php vendor/bin/phpcpd --min-lines=4 --min-tokens=36 app/ cms/"
+            "@php vendor/bin/phpcpd --min-lines=4 --min-tokens=36 app/"
         ],
         "test": [
             "@php artisan test --parallel"
